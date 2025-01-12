@@ -15,7 +15,7 @@ fi
 done")
 
 ExternalProject_Add(mpv-packaging
-    GIT_REPOSITORY https://github.com/shinchiro/mpv-packaging.git
+    GIT_REPOSITORY https://github.com/EndlesslyFlowering/mpv-packaging.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
     UPDATE_COMMAND ""
