@@ -150,6 +150,12 @@ jobs:
           name: mpv-${{ matrix.bit }}-debug
           path: release_${{ matrix.bit }}/mpv-debug-${{ env.arch }}*
 
+      - name: Uploading ffmpeg ${{ matrix.bit }} build
+        uses: actions/upload-artifact@master
+        with:
+          name: ffmpeg-${{ matrix.bit }}
+          path: release_${{ matrix.bit }}/ffmpeg-${{ env.arch }}*
+
       - name: Cleaning build directory
         if: always()
         run: |
