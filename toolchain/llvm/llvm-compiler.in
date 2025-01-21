@@ -8,7 +8,7 @@ FLAGS="$FLAGS -Wno-unused-command-line-argument"
 if [ "@TARGET_CPU@" == "aarch64" ]; then
     ARCH_FLAGS="-mcpu=@GCC_ARCH@ -mtune=@M_TUNE@"
 else
-    ARCH_FLAGS="-march=@GCC_ARCH@ -mtune=@M_TUNE@"
+    ARCH_FLAGS="-march=@GCC_ARCH@"
 fi
 
 if [ "$CONF" == "1" ]; then
