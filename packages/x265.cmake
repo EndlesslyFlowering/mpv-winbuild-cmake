@@ -1,7 +1,7 @@
 if(${TARGET_CPU} MATCHES "x86_64")
     set(high_bit_depth "-DHIGH_BIT_DEPTH=ON -DENABLE_HDR10_PLUS=ON")
     # 10bit/12bit only supported in x64.
-    set(ffmpeg_x265 "x265-8+10bit")
+    set(ffmpeg_x265 "x265-8+10+12bit")
 else()
     set(high_bit_depth "-DHIGH_BIT_DEPTH=OFF")
     set(ffmpeg_x265 "x265-10bit")
