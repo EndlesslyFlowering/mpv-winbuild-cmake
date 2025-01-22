@@ -44,12 +44,15 @@ jobs:
           elif [[ $BIT == "x86_64_znver3" ]]; then
             echo "arch=x86_64" >> $GITHUB_ENV
             echo "x86_64_level=-znver3" >> $GITHUB_ENV
+            echo "x86_64_GCC_ARCH=-DGCC_ARCH=znver3" >> $GITHUB_ENV
           elif [[ $BIT == "x86_64_znver4" ]]; then
             echo "arch=x86_64" >> $GITHUB_ENV
             echo "x86_64_level=-znver4" >> $GITHUB_ENV
+            echo "x86_64_GCC_ARCH=-DGCC_ARCH=znver4" >> $GITHUB_ENV
           elif [[ $BIT == "x86_64_znver5" ]]; then
             echo "arch=x86_64" >> $GITHUB_ENV
             echo "x86_64_level=-znver5" >> $GITHUB_ENV
+            echo "x86_64_GCC_ARCH=-DGCC_ARCH=znver5" >> $GITHUB_ENV
           fi
 
       - name: Setup git config
@@ -98,10 +101,7 @@ jobs:
 
       - name: Configuring CMake & Downloading source
         run: |
-          if [[ $BIT == x86_64_znver3 ]]; then echo "x86_64_znver_ARCH=-DGCC_ARCH=znver3" >> $GITHUB_ENV; fi
-          if [[ $BIT == x86_64_znver4 ]]; then echo "x86_64_znver_ARCH=-DGCC_ARCH=znver4" >> $GITHUB_ENV; fi
-          if [[ $BIT == x86_64_znver5 ]]; then echo "x86_64_znver_ARCH=-DGCC_ARCH=znver5" >> $GITHUB_ENV; fi
-          cmake -DTARGET_ARCH=${{ env.arch }}-w64-mingw32 -DCOMPILER_TOOLCHAIN=clang ${{ env.x86_64_znver_ARCH }} -DCMAKE_INSTALL_PREFIX=$PWD/clang_root -DMINGW_INSTALL_PREFIX=$PWD/build_$BIT/$BIT-w64-mingw32 -DSINGLE_SOURCE_LOCATION=$PWD/src_packages -DRUSTUP_LOCATION=$PWD/clang_root/install_rustup -DENABLE_CCACHE=ON -DCLANG_PACKAGES_LTO=ON -G Ninja --fresh -B build_$BIT -S $PWD
+          cmake -DTARGET_ARCH=${{ env.arch }}-w64-mingw32 -DCOMPILER_TOOLCHAIN=clang ${{ env.x86_64_GCC_ARCH }} -DCMAKE_INSTALL_PREFIX=$PWD/clang_root -DMINGW_INSTALL_PREFIX=$PWD/build_$BIT/$BIT-w64-mingw32 -DSINGLE_SOURCE_LOCATION=$PWD/src_packages -DRUSTUP_LOCATION=$PWD/clang_root/install_rustup -DENABLE_CCACHE=ON -DCLANG_PACKAGES_LTO=ON -G Ninja --fresh -B build_$BIT -S $PWD
           ninja -C build_$BIT download || true
 
       - name: Building mpv
