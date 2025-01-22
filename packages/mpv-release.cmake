@@ -105,7 +105,7 @@ mv $2 $3/mpv-\${TAG}-$4")
 ExternalProject_Add_Step(mpv-release copy-package-dir
     DEPENDEES copy-binary
     COMMAND chmod 755 ${RENAME}
-    COMMAND ${RENAME} <SOURCE_DIR> ${CMAKE_CURRENT_BINARY_DIR}/mpv-package ${CMAKE_BINARY_DIR} ${TARGET_CPU}${x86_64_LEVEL}
+    COMMAND ${RENAME} <SOURCE_DIR> ${CMAKE_CURRENT_BINARY_DIR}/mpv-package ${CMAKE_BINARY_DIR} ${TARGET_CPU}-${x86_64_LEVEL}
     COMMENT "Moving mpv package folder"
     LOG 1
 )
