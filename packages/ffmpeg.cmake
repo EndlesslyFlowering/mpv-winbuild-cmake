@@ -51,6 +51,7 @@ ExternalProject_Add(ffmpeg
     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
     GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !tests/ref/fate"
     UPDATE_COMMAND ""
+    PATCH_COMMAND ${EXEC} git apply --3way ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg-*.patch
     CONFIGURE_COMMAND ${EXEC} CONF=1 <SOURCE_DIR>/configure
         --cross-prefix=${TARGET_ARCH}-
         --prefix=${MINGW_INSTALL_PREFIX}
