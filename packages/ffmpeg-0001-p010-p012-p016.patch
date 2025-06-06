@@ -1,0 +1,302 @@
+diff --git a/libavcodec/raw_pix_fmt_tags.h b/libavcodec/raw_pix_fmt_tags.h
+index bdde060cf7..cddd84415c 100644
+--- a/libavcodec/raw_pix_fmt_tags.h
++++ b/libavcodec/raw_pix_fmt_tags.h
+@@ -190,6 +190,13 @@ static const PixelFormatTag raw_pix_fmt_tags[] = {
+     { AV_PIX_FMT_YUVA444P16LE,    MKTAG('Y', '4',  0 , 16 ) },
+     { AV_PIX_FMT_YUVA444P16BE,    MKTAG(16 ,  0 , '4', 'Y') },
+ 
++    { AV_PIX_FMT_P010LE,          MKTAG('P', '0', '1', '0') },
++    { AV_PIX_FMT_P010BE,          MKTAG('0', '1', '0', 'P') },
++    { AV_PIX_FMT_P012LE,          MKTAG('P', '0', '1', '2') },
++    { AV_PIX_FMT_P012BE,          MKTAG('2', '1', '0', 'P') },
++    { AV_PIX_FMT_P016LE,          MKTAG('P', '0', '1', '6') },
++    { AV_PIX_FMT_P016BE,          MKTAG('6', '1', '0', 'P') },
++
+     { AV_PIX_FMT_GBRP,            MKTAG('G', '3', 00 ,  8 ) },
+     { AV_PIX_FMT_GBRP9LE,         MKTAG('G', '3', 00 ,  9 ) },
+     { AV_PIX_FMT_GBRP9BE,         MKTAG( 9 , 00 , '3', 'G') },
+diff --git a/libavformat/nut.c b/libavformat/nut.c
+index f317435813..8423622197 100644
+--- a/libavformat/nut.c
++++ b/libavformat/nut.c
+@@ -163,6 +163,13 @@ const AVCodecTag ff_nut_video_tags[] = {
+     { AV_CODEC_ID_RAWVIDEO,         MKTAG('Y', '4',   0,  16) },
+     { AV_CODEC_ID_RAWVIDEO,         MKTAG(16,    0, '4', 'Y') },
+ 
++    { AV_CODEC_ID_RAWVIDEO,         MKTAG('P', '0', '1', '0') },
++    { AV_CODEC_ID_RAWVIDEO,         MKTAG('0', '1', '0', 'P') },
++    { AV_CODEC_ID_RAWVIDEO,         MKTAG('P', '0', '1', '2') },
++    { AV_CODEC_ID_RAWVIDEO,         MKTAG('2', '1', '0', 'P') },
++    { AV_CODEC_ID_RAWVIDEO,         MKTAG('P', '0', '1', '6') },
++    { AV_CODEC_ID_RAWVIDEO,         MKTAG('6', '1', '0', 'P') },
++
+     { AV_CODEC_ID_RAWVIDEO,         MKTAG('Y', '1',   0,  14) },
+     { AV_CODEC_ID_RAWVIDEO,         MKTAG(14,    0, '1', 'Y') },
+ 
+diff --git a/tests/ref/fate/filter-pixdesc-p010be b/tests/ref/fate/filter-pixdesc-p010be
+index 4d9dd22a1b..b018ba36cf 100644
+--- a/tests/ref/fate/filter-pixdesc-p010be
++++ b/tests/ref/fate/filter-pixdesc-p010be
+@@ -1 +1 @@
+-pixdesc-p010be      784a49bf554861da9d0809a615bcf813
++pixdesc-p010be      39f451ce31f8745de6fbc4f1d92d8453
+diff --git a/tests/ref/fate/filter-pixdesc-p010le b/tests/ref/fate/filter-pixdesc-p010le
+index cac263568c..875aa20fc9 100644
+--- a/tests/ref/fate/filter-pixdesc-p010le
++++ b/tests/ref/fate/filter-pixdesc-p010le
+@@ -1 +1 @@
+-pixdesc-p010le      0268fd44f63022e21ada69704534fc85
++pixdesc-p010le      c7667100b630daa008792dee8bf66707
+diff --git a/tests/ref/fate/filter-pixdesc-p012be b/tests/ref/fate/filter-pixdesc-p012be
+index 217ca49157..6b53f33308 100644
+--- a/tests/ref/fate/filter-pixdesc-p012be
++++ b/tests/ref/fate/filter-pixdesc-p012be
+@@ -1 +1 @@
+-pixdesc-p012be      784a49bf554861da9d0809a615bcf813
++pixdesc-p012be      ecefe7344a3a6b695a33548406b7fec3
+diff --git a/tests/ref/fate/filter-pixdesc-p012le b/tests/ref/fate/filter-pixdesc-p012le
+index 681cd48b4b..d31b7709af 100644
+--- a/tests/ref/fate/filter-pixdesc-p012le
++++ b/tests/ref/fate/filter-pixdesc-p012le
+@@ -1 +1 @@
+-pixdesc-p012le      0268fd44f63022e21ada69704534fc85
++pixdesc-p012le      0c53161879168f1faf612e3864267a3d
+diff --git a/tests/ref/fate/filter-pixdesc-p016be b/tests/ref/fate/filter-pixdesc-p016be
+index 7c934079c8..0a842f9de0 100644
+--- a/tests/ref/fate/filter-pixdesc-p016be
++++ b/tests/ref/fate/filter-pixdesc-p016be
+@@ -1 +1 @@
+-pixdesc-p016be      784a49bf554861da9d0809a615bcf813
++pixdesc-p016be      a2197311171e18c708eca518c125caa9
+diff --git a/tests/ref/fate/filter-pixdesc-p016le b/tests/ref/fate/filter-pixdesc-p016le
+index 7e16c9a879..d9db769168 100644
+--- a/tests/ref/fate/filter-pixdesc-p016le
++++ b/tests/ref/fate/filter-pixdesc-p016le
+@@ -1 +1 @@
+-pixdesc-p016le      0268fd44f63022e21ada69704534fc85
++pixdesc-p016le      4534766cca25d48a41bebd703b230ce6
+diff --git a/tests/ref/fate/filter-pixfmts-copy b/tests/ref/fate/filter-pixfmts-copy
+index cbedb4d894..4147eabce2 100644
+--- a/tests/ref/fate/filter-pixfmts-copy
++++ b/tests/ref/fate/filter-pixfmts-copy
+@@ -66,12 +66,12 @@ nv20le              3f0f46d5f65cf314eb1e24d21028afb8
+ nv21                335d85c9af6110f26ae9e187a82ed2cf
+ nv24                f30fc8d0ac40af69e119ea919a314572
+ nv42                29a212f70f8780fe0eb99abcae81894d
+-p010be              7f9842d6015026136bad60d03c035cc3
+-p010le              1929db89609c4b8c6d9c9030a9e7843d
+-p012be              7f9842d6015026136bad60d03c035cc3
+-p012le              1929db89609c4b8c6d9c9030a9e7843d
+-p016be              7f9842d6015026136bad60d03c035cc3
+-p016le              1929db89609c4b8c6d9c9030a9e7843d
++p010be              e6e39da76420ce9886504a804fdb5aed
++p010le              418dc33ecb7b38e682a9b6c07fc51f35
++p012be              0ed8d839e8a21e2c2924066e74b25f5c
++p012le              0701e56c288ce11bd67f9c25bc6a2494
++p016be              06336a451fc6e4bc280f849fed142aa3
++p016le              aff5faa21d219db2a035e4b8b08679c6
+ p210be              847e9c6e292b17349e69570829252b3e
+ p210le              c06e4b76cf504e908128081f92b60ce2
+ p212be              4df641ed058718ad27a01889f923b04f
+diff --git a/tests/ref/fate/filter-pixfmts-crop b/tests/ref/fate/filter-pixfmts-crop
+index d4bffda7dc..f69a6a8b26 100644
+--- a/tests/ref/fate/filter-pixfmts-crop
++++ b/tests/ref/fate/filter-pixfmts-crop
+@@ -64,12 +64,12 @@ nv20le              a31f7f8105a8d9cfa6de13d865cff870
+ nv21                1bcfc197f4fb95de85ba58182d8d2f69
+ nv24                514c8f12082f0737e558778cbe7de258
+ nv42                ece9baae1c5de579dac2c66a89e08ef3
+-p010be              8b2de2eb6b099bbf355bfc55a0694ddc
+-p010le              a1e4f713e145dfc465bfe0cc77096a03
+-p012be              8b2de2eb6b099bbf355bfc55a0694ddc
+-p012le              a1e4f713e145dfc465bfe0cc77096a03
+-p016be              8b2de2eb6b099bbf355bfc55a0694ddc
+-p016le              a1e4f713e145dfc465bfe0cc77096a03
++p010be              11130bc51592994da9d8753d5c16b4d7
++p010le              0eb648341d4282605f722e509878c106
++p012be              5873431990fc689999c80f426217e340
++p012le              a245bab22144f4cf1e0086ebc55351f6
++p016be              0c1b57d5dbb3a3411856f02de5cbba98
++p016le              bd9ed7f4a9704d9270e97c3ff5124a2f
+ p210be              2947f43774352ef61f9e83777548c7c5
+ p210le              74fcd5a32eee687eebe002c884103963
+ p212be              c983aa869bae2c70e7b01810902ffc05
+diff --git a/tests/ref/fate/filter-pixfmts-field b/tests/ref/fate/filter-pixfmts-field
+index 146ceab9c7..8d747911eb 100644
+--- a/tests/ref/fate/filter-pixfmts-field
++++ b/tests/ref/fate/filter-pixfmts-field
+@@ -66,12 +66,12 @@ nv20le              342f2736c3c5f6277c46ba66101101ec
+ nv21                7294574037cc7f9373ef5695d8ebe809
+ nv24                3b100fb527b64ee2b2d7120da573faf5
+ nv42                1841ce853152d86b27c130f319ea0db2
+-p010be              a0311a09bba7383553267d2b3b9c075e
+-p010le              f1cc90d292046109a626db2da9f0f9b6
+-p012be              a0311a09bba7383553267d2b3b9c075e
+-p012le              f1cc90d292046109a626db2da9f0f9b6
+-p016be              a0311a09bba7383553267d2b3b9c075e
+-p016le              f1cc90d292046109a626db2da9f0f9b6
++p010be              0bd0fbc7c599e5070130725cc8d4113f
++p010le              cb4adaa3f1698c5b5c9154b1f39e1e52
++p012be              ed8ce7d21379b910abbab94853aa7201
++p012le              c6d804a32512b46a4819852138f2df80
++p016be              054015a2e79b473af278657394aa9dc7
++p016le              eb19c4c110c7139fba9327c74be6a32e
+ p210be              58d46f566ab28e3bcfb715c7aa53cf58
+ p210le              8d68f7655a3d76f2f8436bd25beb3973
+ p212be              a8901966c5bc111e9e62d3989b0b666b
+diff --git a/tests/ref/fate/filter-pixfmts-hflip b/tests/ref/fate/filter-pixfmts-hflip
+index 0ece4ea134..950383e82b 100644
+--- a/tests/ref/fate/filter-pixfmts-hflip
++++ b/tests/ref/fate/filter-pixfmts-hflip
+@@ -64,12 +64,12 @@ nv20le              eaac839121362f12270af3deff4d32e7
+ nv21                9f10dfff8963dc327d3395af21f0554f
+ nv24                f0c5b2f42970f8d4003621d8857a872f
+ nv42                4dcf9aec82b110712b396a8b365dcb13
+-p010be              744b13e44d39e1ff7588983fa03e0101
+-p010le              aeb31f50c66f376b0530c7bb6287212b
+-p012be              744b13e44d39e1ff7588983fa03e0101
+-p012le              aeb31f50c66f376b0530c7bb6287212b
+-p016be              744b13e44d39e1ff7588983fa03e0101
+-p016le              aeb31f50c66f376b0530c7bb6287212b
++p010be              ca4d0ec1760a0ee349c9c021b59397ff
++p010le              c5821aa6b98062ad354ecd43c1b802cb
++p012be              cd2208958c8eaa8ba320ddaadb2d0efd
++p012le              195b33571fea34247fee34003fc10176
++p016be              b4c2b8f772da66284ebbadc0cee4bd06
++p016le              fce3d165eda77d6e9c985eaa569d5a6b
+ p210be              6f5a76d6467b86d55fe5589d3af8a7ea
+ p210le              b6982912b2376371edea4fccf99fe40c
+ p212be              9ffa4664543233ec7c9b99a627cb7003
+diff --git a/tests/ref/fate/filter-pixfmts-il b/tests/ref/fate/filter-pixfmts-il
+index ce707f9c8b..5be4393c67 100644
+--- a/tests/ref/fate/filter-pixfmts-il
++++ b/tests/ref/fate/filter-pixfmts-il
+@@ -66,12 +66,12 @@ nv20le              02e738d5bcd8c7b57cb56dee663232f6
+ nv21                ab586d8781246b5a32d8760a61db9797
+ nv24                554153c71d142e3fd8e40b7dcaaec229
+ nv42                d699724c8deaeb4f87faf2766512eec3
+-p010be              3df51286ef66b53e3e283dbbab582263
+-p010le              38945445b360fa737e9e37257393e823
+-p012be              3df51286ef66b53e3e283dbbab582263
+-p012le              38945445b360fa737e9e37257393e823
+-p016be              3df51286ef66b53e3e283dbbab582263
+-p016le              38945445b360fa737e9e37257393e823
++p010be              afe65935439d6cb24e5c1d5e77401b77
++p010le              4375b104eba4da04c792acfb8ac36ba9
++p012be              fa913f8f94d2b27acd9a66321a44595b
++p012le              a21822dbb317021db3e2346ba00a8941
++p016be              726867a62748357fc022c344b2f453fe
++p016le              63a7e9a97dcf22eeb0bd5866c3da3c3e
+ p210be              29ec4e8912d456cd15203a96487c42e8
+ p210le              c695064fb9f2cc4e35957d4d649cc281
+ p212be              ee6f88801823da3d617fb9e073e88068
+diff --git a/tests/ref/fate/filter-pixfmts-null b/tests/ref/fate/filter-pixfmts-null
+index cbedb4d894..4147eabce2 100644
+--- a/tests/ref/fate/filter-pixfmts-null
++++ b/tests/ref/fate/filter-pixfmts-null
+@@ -66,12 +66,12 @@ nv20le              3f0f46d5f65cf314eb1e24d21028afb8
+ nv21                335d85c9af6110f26ae9e187a82ed2cf
+ nv24                f30fc8d0ac40af69e119ea919a314572
+ nv42                29a212f70f8780fe0eb99abcae81894d
+-p010be              7f9842d6015026136bad60d03c035cc3
+-p010le              1929db89609c4b8c6d9c9030a9e7843d
+-p012be              7f9842d6015026136bad60d03c035cc3
+-p012le              1929db89609c4b8c6d9c9030a9e7843d
+-p016be              7f9842d6015026136bad60d03c035cc3
+-p016le              1929db89609c4b8c6d9c9030a9e7843d
++p010be              e6e39da76420ce9886504a804fdb5aed
++p010le              418dc33ecb7b38e682a9b6c07fc51f35
++p012be              0ed8d839e8a21e2c2924066e74b25f5c
++p012le              0701e56c288ce11bd67f9c25bc6a2494
++p016be              06336a451fc6e4bc280f849fed142aa3
++p016le              aff5faa21d219db2a035e4b8b08679c6
+ p210be              847e9c6e292b17349e69570829252b3e
+ p210le              c06e4b76cf504e908128081f92b60ce2
+ p212be              4df641ed058718ad27a01889f923b04f
+diff --git a/tests/ref/fate/filter-pixfmts-pad b/tests/ref/fate/filter-pixfmts-pad
+index 9370ca2cb3..252620f80d 100644
+--- a/tests/ref/fate/filter-pixfmts-pad
++++ b/tests/ref/fate/filter-pixfmts-pad
+@@ -30,9 +30,9 @@ nv20le              59511282a2565ed060e4fb1fee8f6bcb
+ nv21                0fdeb2cdd56cf5a7147dc273456fa217
+ nv24                193b9eadcc06ad5081609f76249b3e47
+ nv42                1738ad3c31c6c16e17679f5b09ce4677
+-p010le              3a92c1bd3e9de050bf6abcc3fd911ab7
+-p012le              3a92c1bd3e9de050bf6abcc3fd911ab7
+-p016le              3a92c1bd3e9de050bf6abcc3fd911ab7
++p010le              c8f6c6c0dad485e0227760d4d10620c7
++p012le              cf7baa1fa9729a03e448e4501188bc13
++p016le              4cbd31341379d98d5ae2d2695dda4849
+ p210le              680912c059de39c3401cac856bd1b0c1
+ p212le              a2f88017bcce2383ba60bc4872e639ba
+ p216le              8718662e226a4581561e7bb532af2d83
+diff --git a/tests/ref/fate/filter-pixfmts-scale b/tests/ref/fate/filter-pixfmts-scale
+index 67de3d414d..2fa4a40076 100644
+--- a/tests/ref/fate/filter-pixfmts-scale
++++ b/tests/ref/fate/filter-pixfmts-scale
+@@ -66,12 +66,12 @@ nv20le              011d1e266e52e9587b0f257ab4533095
+ nv21                c74bb1c10dbbdee8a1f682b194486c4d
+ nv24                2aa6e805bf6d4179ed8d7dea37d75db3
+ nv42                80714d1eb2d8bcaeab3abc3124df1abd
+-p010be              1d6726d94bf1385996a9a9840dd0e878
+-p010le              5d436e6b35292a0e356d81f37f989b66
+-p012be              e4dc7ccd654c2d74fde9c7b2711d960b
+-p012le              cd4b6bdcd8967fc0e869ce3b8a014133
+-p016be              31e204018cbb53f8988c4e1174ea8ce9
+-p016le              6832661b5fe5f9a7a882f482a881b679
++p010be              4e63dec3cd0a5089405c5af5e2d6dfe0
++p010le              0498fb823620f9bff2983ad172aaea3a
++p012be              142063537b61186bbb2a80b301f40dac
++p012le              13323132896b980651c077faa676de62
++p016be              c03a5d818bbbf72193f10bf2f31f049e
++p016le              15cdfb7f5e93bbba4a7575cd4d0b7253
+ p210be              2cc6dfcf5e006c8ed5238988a06fd45e
+ p210le              04efb8f14a9d98417af40954a06aa187
+ p212be              611c6e267e7a694ce89467779e44060b
+diff --git a/tests/ref/fate/filter-pixfmts-transpose b/tests/ref/fate/filter-pixfmts-transpose
+index 3064f2b180..aab00ea42d 100644
+--- a/tests/ref/fate/filter-pixfmts-transpose
++++ b/tests/ref/fate/filter-pixfmts-transpose
+@@ -61,12 +61,12 @@ nv12                1965e3826144686748f2f6b516fca5ba
+ nv21                292adaf5271c5c8516b71640458c01f4
+ nv24                ea9de8b47faed722ee40182f89489beb
+ nv42                636af6cd6a4f3ac5edc0fc3ce3c56d63
+-p010be              ad0de2cc9bff81688b182a870fcf7000
+-p010le              024ef1cf56a4872f202b96a6a4bbf10a
+-p012be              ad0de2cc9bff81688b182a870fcf7000
+-p012le              024ef1cf56a4872f202b96a6a4bbf10a
+-p016be              ad0de2cc9bff81688b182a870fcf7000
+-p016le              024ef1cf56a4872f202b96a6a4bbf10a
++p010be              530d86c62771030d57501315b5854c65
++p010le              8ef4ff596b554b5baa28827cf590b540
++p012be              2609953293435dfd8f42193eed4dea52
++p012le              ab7a12e202bf85df1251d02e6f9d7ea0
++p016be              07cf57ca2f134816df837b869e6074db
++p016le              4aa59bf0344a06f9f7353b42bf87546c
+ p410be              8b3e0ccb31b6a20ff00a29253fb2dec3
+ p410le              4e5f78dfccda9a6387e81354a56a033a
+ p412be              88e4578d2c6d99399a6cf1db9e4c0553
+diff --git a/tests/ref/fate/filter-pixfmts-vflip b/tests/ref/fate/filter-pixfmts-vflip
+index a36d957443..d718780c41 100644
+--- a/tests/ref/fate/filter-pixfmts-vflip
++++ b/tests/ref/fate/filter-pixfmts-vflip
+@@ -66,12 +66,12 @@ nv20le              8f53d78acd0af1c7fb676b38ba4ba12b
+ nv21                2909feacd27bebb080c8e0fa41795269
+ nv24                334420b9d3df84499d2ca16bb66eed2b
+ nv42                ba4063e2795c17fea3c8a646b01fd1f5
+-p010be              06e9354b6e0e38ba41736352cedc0bd5
+-p010le              cdf6a3c38d9d4e3f079fa369e1dda662
+-p012be              06e9354b6e0e38ba41736352cedc0bd5
+-p012le              cdf6a3c38d9d4e3f079fa369e1dda662
+-p016be              06e9354b6e0e38ba41736352cedc0bd5
+-p016le              cdf6a3c38d9d4e3f079fa369e1dda662
++p010be              91cedd15d23642864f79f53ad3545751
++p010le              5ba8c684f136ca877cf975ea0c5d3401
++p012be              78fd8a26918f632c6619231e65a1dc54
++p012le              e581e01d45ee9659bdca8d9896d8f732
++p016be              18f2b266b6cab04b3ae6c3265d6345e5
++p016le              d02d70bb98510cde46f26d464b6c4a9f
+ p210be              ca886ab2b3ea5c153f1954b3709f7249
+ p210le              d71c2d4e483030ffd87fa6a68c83fce0
+ p212be              1734e5840d4e75defe7a28683c3f8856
